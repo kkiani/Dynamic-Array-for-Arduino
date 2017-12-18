@@ -1,13 +1,13 @@
 //
-//  LinkedList.h
+//  linkList.h
 //
 //  Created by Kiarash on 12/2/17.
 //  Edited by Sepehr on 12/17/17.
 //  Copyright © 2017 Kiarash. All rights reserved.
 //
 
-#ifndef LinkedList_h
-#define LinkedList_h
+#ifndef linkList_h
+#define linkList_h
 
 using namespace std;
 typedef bitset<8> byte;
@@ -182,4 +182,4 @@ int list<T>::length(){
 }
 
 
-#endif /* LinkedList_h */
+#endif /* linkList_h */
