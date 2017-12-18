@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "LinkedList.h"
+#include "LinkList.h"
 
 using namespace std;
 
