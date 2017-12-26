@@ -17,6 +17,10 @@ struct node
 {
     T data;
     node *next;
+    
+    ~node(){
+        data = NULL;
+    }
 };
 
 template <class T>
@@ -26,6 +30,7 @@ private:
     node<T> *head, *tail;
 public:
     list();
+    ~list();
 
     void append(T value);
     void display();
@@ -47,6 +52,23 @@ template <class T>
 list<T>::list(){
     head=NULL;
     tail=NULL;
+}
+
+template <class T>
+list<T>::~list(){
+    node<T> *current;
+    node<T> *previous;
+    current=head;
+    while(current!=NULL)
+    {
+        previous=current;
+        current=current->next;
+        delete previous;
+    }
+    current = NULL;
+    previous = NULL;
+    head = NULL;
+    tail = NULL;
 }
 
 template <class T>
@@ -78,6 +100,7 @@ void list<T>::display(){
         temp=temp->next;
     }
     //    Serial.print("\n");
+    temp = NULL;
 }
 
 template <class T>
@@ -88,10 +111,18 @@ void list<T>::insertStart(T value){
     head=temp;
 }
 
+
 template <class T>
 void list<T>::addNewValueAtIndex(int pos, T value){
-    node<T> *pre=new node<T>;
-    node<T> *cur=new node<T>;
+    
+    /// in case of insert start
+    if (pos == 0){
+        insertStart(value);
+        return;
+    }
+    
+    node<T> *pre=NULL;
+    node<T> *cur;
     node<T> *temp=new node<T>;
     cur=head;
     for(int i=0;i<pos;i++)
@@ -107,8 +138,8 @@ void list<T>::addNewValueAtIndex(int pos, T value){
 template <class T>
 void list<T>::setValueForIndex(int index, T value){
     
-    node<T> *pre=new node<T>;
-    node<T> *cur=new node<T>;
+    node<T> *pre;
+    node<T> *cur;
     cur=head;
     
     for(int i=0;i<index;i++){
@@ -122,7 +153,7 @@ void list<T>::setValueForIndex(int index, T value){
 
 template <class T>
 void list<T>::deleteFirst(){
-    node<T> *temp=new node<T>;
+    node<T> *temp;
     temp=head;
     head=head->next;
     delete temp;
@@ -130,8 +161,8 @@ void list<T>::deleteFirst(){
 
 template <class T>
 void list<T>::deleteLast(){
-    node<T> *current=new node<T>;
-    node<T> *previous=new node<T>;
+    node<T> *current;
+    node<T> *previous=NULL;
     current=head;
     while(current->next!=NULL)
     {
@@ -145,8 +176,8 @@ void list<T>::deleteLast(){
 
 template <class T>
 void list<T>::deleteValueAtIndex(int pos){
-    node<T> *current=new node<T>;
-    node<T> *previous=new node<T>;
+    node<T> *current;
+    node<T> *previous=NULL;
     current=head;
     for(int i=0;i<pos;i++)
     {
@@ -154,6 +185,7 @@ void list<T>::deleteValueAtIndex(int pos){
         current=current->next;
     }
     previous->next=current->next;
+    delete current;
 }
 
 template <class T>
@@ -170,7 +202,7 @@ T list<T>::valueForIndex(int index){
 
 template <class T>
 int list<T>::length(){
-    node<T> *current=new node<T>;
+    node<T> *current;
     current=head;
     int count = 0;
     while(current!=NULL)
@@ -178,6 +210,7 @@ int list<T>::length(){
         count++;
         current=current->next;
     }
+    current = NULL;
     return count;
 }
 
